@@ -1,0 +1,21 @@
+mysql:
+  image: mysql:5.7
+  environment:
+    MYSQL_ROOT_PASSWORD: sample
+    MYSQL_DATABASE: wordpress
+    MYSQL_USER: sample
+    MYSQL_PASSWORD: sample
+
+wordpress:
+  build: .
+
+  environment:
+    SERVER_NAME: demo.loc
+    DB_HOSTNAME: db
+    DB_DATABASE: wordpress
+    DB_USER: sample
+    DB_PASSWORD: sample
+  links:
+    - mysql:db
+  ports:
+    - "9000"
