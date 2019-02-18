@@ -41,4 +41,4 @@ CMD ["/usr/bin/supervisord", "--configuration=/etc/supervisord.conf"]
 
 VOLUME ["/var/www/html", "/var/log"]
 
-EXPOSE 80 443
+EXPOSE 9000
