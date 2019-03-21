@@ -31,6 +31,7 @@ RUN curl -LO https://github.com/WordPress/WordPress/archive/5.0.3.tar.gz && \
 
 #RUN rm -rf /usr/share/nginx/www && mv /usr/share/nginx/wordpress /usr/share/nginx/www && \
 #	chown -R www-data:www-data /usr/share/nginx/www
+RUN mkdir -p /usr/share/nginx
 RUN ln -s /var/www/html/WordPress-5.0.3 /usr/share/nginx/www
 # Copy wp-config
 COPY config/wp-config.php /usr/share/nginx/www/wp-config.php
