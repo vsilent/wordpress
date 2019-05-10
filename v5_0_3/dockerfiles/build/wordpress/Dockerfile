@@ -41,5 +41,5 @@ RUN mkdir /run/php
 CMD ["/usr/bin/supervisord", "--configuration=/etc/supervisord.conf"]
 
 VOLUME ["/var/www/html", "/var/log"]
-USER trydirect
+USER wordpress
 EXPOSE 80 443
