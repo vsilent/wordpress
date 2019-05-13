@@ -6,7 +6,6 @@ volumes:
     wp:
       driver: local
 
-
 services:
   wpdb:
     image: mysql:5.7
