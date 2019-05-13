@@ -49,4 +49,4 @@ CMD ["/usr/bin/supervisord", "--configuration=/etc/supervisord.conf"]
 
 VOLUME ["/var/www/html", "/var/log"]
 USER wordpress
-EXPOSE 9000
+EXPOSE 80 443 9000
