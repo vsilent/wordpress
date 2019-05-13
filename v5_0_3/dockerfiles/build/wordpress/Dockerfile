@@ -41,10 +41,11 @@ COPY config/www.conf /etc/php/7.0/fpm/pool.d
 RUN mkdir /run/php
 
 RUN chown -R wordpress. /run/php && \
+    mkdir -p /var/log/php && \
     chown -R wordpress. /var/log/php*
 
 CMD ["/usr/bin/supervisord", "--configuration=/etc/supervisord.conf"]
 
 VOLUME ["/var/www/html", "/var/log"]
 USER wordpress
-EXPOSE 80 443 9000
+EXPOSE 9000
