@@ -23,6 +23,8 @@ install:
 before_script:
   - pip install requests
   - pip install docker
+  - cd $TRAVIS_BUILD_DIR
+
 
 script:
   - python tests.py
