@@ -2,9 +2,6 @@ language: python
 python:
   - 2.7
 
-env:
-  DOCKER_COMPOSE_VERSION: 1.8.0
-
 services:
   - docker
 
@@ -33,3 +30,10 @@ before_script:
 
 script:
   - python tests.py
+
+
+# safelist
+branches:
+  only:
+    - master
+    - autotests-travis
