@@ -11,8 +11,9 @@ RUN apt-get update && apt-get install -y software-properties-common \
                       php-curl php-gd php-intl php-pear php-imagick php-imap php-memcache \
 					  php-pspell php-recode php-mcrypt php-tidy php-xmlrpc php-xsl supervisor
 
+RUN groupadd -r -g 1000 wordpress; useradd -r -u 1000 -g 1000 -m -c "app account" -d /home/wordpress -s /bin/bash wordpress
 # ----------------------------------------------------------
-# PHP-fpm Config
+# PHP-fpm Configgi
 # ----------------------------------------------------------
 RUN sed -i -e "s/;cgi.fix_pathinfo\s*=\s*1/cgi.fix_pathinfo = 0/g; s/expose_php\s*=\s*On/expose_php = Off/g" \
 /etc/php/7.0/fpm/php.ini
@@ -31,14 +32,19 @@ RUN curl -LO https://github.com/WordPress/WordPress/archive/5.0.3.tar.gz && \
 
 #RUN rm -rf /usr/share/nginx/www && mv /usr/share/nginx/wordpress /usr/share/nginx/www && \
 #	chown -R www-data:www-data /usr/share/nginx/www
-
+RUN mkdir -p /usr/share/nginx
+RUN ln -s /var/www/html/WordPress-5.0.3 /usr/share/nginx/www
 # Copy wp-config
 COPY config/wp-config.php /usr/share/nginx/www/wp-config.php
 COPY config/supervisord.conf /etc/supervisord.conf
 COPY config/www.conf /etc/php/7.0/fpm/pool.d
 RUN mkdir /run/php
+
+RUN chown -R wordpress. /run/php && \
+    chown -R wordpress. /var/log/php
+
 CMD ["/usr/bin/supervisord", "--configuration=/etc/supervisord.conf"]
 
 VOLUME ["/var/www/html", "/var/log"]
-
-EXPOSE 9000
+USER wordpress
+EXPOSE 80 443 9000
