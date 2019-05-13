@@ -31,3 +31,9 @@ notifications:
   slack:
     rooms:
 	  - optimum-team:GycletOWK4Kt95GktwYwfUMp#build
+
+# safelist
+branches:
+  only:
+    - master
+    - autotests-travis
