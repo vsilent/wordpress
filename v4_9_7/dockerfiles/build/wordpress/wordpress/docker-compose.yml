@@ -1,0 +1,35 @@
+mysql:
+  image: mysql:5.7
+  environment:
+    MYSQL_ROOT_PASSWORD: sample
+    MYSQL_DATABASE: wordpress
+    MYSQL_USER: sample
+    MYSQL_PASSWORD: sample
+#  volumes:
+    # Workaround script for Mac OSX
+    #- ./bash:/docker-entrypoint-initdb.d
+
+wordpress:
+  # image: ${REGISTRY}optimum/wp-nginx-fpm-ssl
+  build: .
+  #  For now only manual execution inside docker will install certificates
+  #  docker exec your_container  sh /addon/ssl.sh
+
+  environment:
+    SERVER_NAME: demo.loc
+    SSL_TRUSTED_CERT_FILE: /ssl/trust.pem
+    SSL_CERT_KEY_FILE: /ssl/key.pem
+    SSL_CERT_FILE: /ssl/crt.pem
+    DB_HOSTNAME: db
+    DB_DATABASE: wordpress
+    DB_USER: sample
+    DB_PASSWORD: sample
+  ports:
+    - "80:80"
+    - "443:443"
+  links:
+    # NOTES: Be sure to keep the "alias" as `db`.
+    # This alias will be used as "prefix" of **exposed ENV. variables** from DB server.
+    - mysql:db
+  volumes:
+    - ./ssl:/ssl:ro

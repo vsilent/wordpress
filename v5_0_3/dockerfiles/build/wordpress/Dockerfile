@@ -9,8 +9,8 @@ RUN apt-get update && apt-get install -y software-properties-common \
                       mysql-client php-fpm php-mysql python-setuptools curl git unzip \
                       php-dev libmcrypt-dev gcc make autoconf libc-dev pkg-config \
                       php-curl php-gd php-intl php-pear php-imagick php-imap php-memcache \
-					  php-pspell php-recode php-mcrypt php-tidy php-xmlrpc php-xsl supervisor
-
+					  php-pspell php-recode php-mcrypt php-tidy php-xmlrpc php-xsl supervisor; \
+                      groupadd -r -g 1000 wordpress; useradd -r -u 1000 -g 1000 -m -c "app account" -d /home/wordpress -s /bin/bash wordpress
 # ----------------------------------------------------------
 # PHP-fpm Config
 # ----------------------------------------------------------
@@ -41,5 +41,5 @@ RUN mkdir /run/php
 CMD ["/usr/bin/supervisord", "--configuration=/etc/supervisord.conf"]
 
 VOLUME ["/var/www/html", "/var/log"]
-
+USER wordpress
 EXPOSE 80 443
