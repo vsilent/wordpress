@@ -9,10 +9,11 @@ RUN apt-get update && apt-get install -y software-properties-common \
                       mysql-client php-fpm php-mysql python-setuptools curl git unzip \
                       php-dev libmcrypt-dev gcc make autoconf libc-dev pkg-config \
                       php-curl php-gd php-intl php-pear php-imagick php-imap php-memcache \
-					  php-pspell php-recode php-mcrypt php-tidy php-xmlrpc php-xsl supervisor; \
-                      groupadd -r -g 1000 wordpress; useradd -r -u 1000 -g 1000 -m -c "app account" -d /home/wordpress -s /bin/bash wordpress
+					  php-pspell php-recode php-mcrypt php-tidy php-xmlrpc php-xsl supervisor
+
+RUN groupadd -r -g 1000 wordpress; useradd -r -u 1000 -g 1000 -m -c "app account" -d /home/wordpress -s /bin/bash wordpress
 # ----------------------------------------------------------
-# PHP-fpm Config
+# PHP-fpm Configgi
 # ----------------------------------------------------------
 RUN sed -i -e "s/;cgi.fix_pathinfo\s*=\s*1/cgi.fix_pathinfo = 0/g; s/expose_php\s*=\s*On/expose_php = Off/g" \
 /etc/php/7.0/fpm/php.ini
@@ -38,8 +39,13 @@ COPY config/wp-config.php /usr/share/nginx/www/wp-config.php
 COPY config/supervisord.conf /etc/supervisord.conf
 COPY config/www.conf /etc/php/7.0/fpm/pool.d
 RUN mkdir /run/php
+
+RUN chown -R wordpress. /run/php && \
+    mkdir -p /var/log/php && \
+    chown -R wordpress. /var/log/php*
+
 CMD ["/usr/bin/supervisord", "--configuration=/etc/supervisord.conf"]
 
 VOLUME ["/var/www/html", "/var/log"]
 USER wordpress
-EXPOSE 80 443
+EXPOSE 9000
