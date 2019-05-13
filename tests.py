@@ -34,8 +34,8 @@ php_conf = php.exec_run("php-fpm7.0 -t")
 # php_proc = php.exec_run("ps aux |grep php-fpm")
 # assert 'php-fpm: master process (/usr/local/etc/php-fpm.conf)' in php_proc.output.decode()
 assert 'fpm is running, pid' in php.logs()
-response = requests.get("http://localhost")
-assert response.status_code == 200
+# response = requests.get("http://localhost")
+# assert response.status_code == 200
 
 mysql = client.containers.get('wpdb')
 assert mysql.status == 'running'
