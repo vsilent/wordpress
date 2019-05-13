@@ -7,8 +7,10 @@ import requests
 
 client = docker.from_env()
 
+time.sleep(10)
 for c in client.containers.list():
     assert c.status == 'running'
+
 
 # NGINX
 nginx = client.containers.get('nginx')
