@@ -13,15 +13,14 @@ for c in client.containers.list():
     print(c.name)
     print(c.status)
 
-
 # NGINX
 nginx = client.containers.get('nginx')
 nginx_cfg = nginx.exec_run("/usr/sbin/nginx -T")
 assert nginx.status == 'running'
-print(nginx_cfg.output.decode())
-# assert 'server_name _;' in nginx_cfg.output.decode()
-# assert "error_log /proc/self/fd/2" in nginx_cfg.output.decode()
-# assert "location = /.well-known/acme-challenge/" in nginx_cfg.output.decode()
+# print(nginx_cfg.output.decode())
+assert 'server_name _;' in nginx_cfg.output.decode()
+assert "error_log /proc/self/fd/2" in nginx_cfg.output.decode()
+assert "location = /.well-known/acme-challenge/" in nginx_cfg.output.decode()
 assert 'HTTP/1.1" 500' not in nginx.logs()
 
 # test restart
@@ -36,7 +35,7 @@ php_conf = php.exec_run("php-fpm7.0 -t")
 # print(php_conf.output.decode())
 assert 'configuration file /etc/php/7.0/fpm/php-fpm.conf test is successful' in php_conf.output.decode()
 php_proc = php.exec_run("ps aux |grep php-fpm")
-print(php_proc.output.decode())
+# print(php_proc.output.decode())
 # assert 'php-fpm: master process (/usr/local/etc/php-fpm.conf)' in php_proc.output.decode()
 
 assert 'fpm is running, pid' in php.logs()
