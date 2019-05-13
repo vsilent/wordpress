@@ -25,6 +25,13 @@ services:
     build: build/wordpress
     container_name: wordpress
     restart: always
+    environment:
+      HOST_NAME: localhost
+      SERVER_NAME: wordpress
+      DB_HOSTNAME: wpdb
+      DB_DATABASE: wordpress
+      DB_USER: wordpress
+      DB_PASSWORD: wordpress
     links:
       - wpdb:db
     volumes:
