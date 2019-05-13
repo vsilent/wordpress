@@ -41,7 +41,7 @@ COPY config/www.conf /etc/php/7.0/fpm/pool.d
 RUN mkdir /run/php
 
 RUN chown -R wordpress. /run/php && \
-    chown -R wordpress. /var/log/php
+    chown -R wordpress. /var/log/php*
 
 CMD ["/usr/bin/supervisord", "--configuration=/etc/supervisord.conf"]
 
