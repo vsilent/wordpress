@@ -30,10 +30,10 @@ script:
 notifications:
   slack:
     rooms:
-	  - optimum-team:GycletOWK4Kt95GktwYwfUMp#build
+    - optimum-team:GycletOWK4Kt95GktwYwfUMp#build
 
 # safelist
-branches:
-  only:
-    - master
-    - autotests-travis
+#branches:
+#  only:
+#    - master
+#    - autotests-travis

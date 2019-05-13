@@ -7,8 +7,10 @@ import requests
 
 client = docker.from_env()
 
+time.sleep(10)
 for c in client.containers.list():
     assert c.status == 'running'
+
 
 # NGINX
 nginx = client.containers.get('nginx')
@@ -29,8 +31,8 @@ php = client.containers.get('wordpress')
 assert php.status == 'running'
 php_conf = php.exec_run("php-fpm7.0 -t")
 assert 'configuration file /usr/local/etc/php-fpm.conf test is successful' in php_conf.output.decode()
-php_proc = php.exec_run("ps aux |grep php-fpm")
-assert 'php-fpm: master process (/usr/local/etc/php-fpm.conf)' in php_proc.output.decode()
+# php_proc = php.exec_run("ps aux |grep php-fpm")
+# assert 'php-fpm: master process (/usr/local/etc/php-fpm.conf)' in php_proc.output.decode()
 assert 'fpm is running, pid' in php.logs()
 response = requests.get("http://localhost")
 assert response.status_code == 200
