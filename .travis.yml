@@ -19,19 +19,10 @@ install:
   - docker-compose up -d
   - docker-compose ps
 
-
 before_script:
   - pip install requests
   - pip install docker
   - cd $TRAVIS_BUILD_DIR
 
-
 script:
   - python tests.py
-
-
-# safelist
-branches:
-  only:
-    - master
-    - autotests-travis
