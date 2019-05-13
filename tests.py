@@ -42,4 +42,3 @@ mycnf = mysql.exec_run("/usr/sbin/mysqld --verbose  --help")
 assert '/usr/sbin/mysqld  Ver 5.7.26' in mycnf.output.decode()
 mysql_log = mysql.logs()
 assert "Ready to accept connections" in mysql_log.decode()
-
