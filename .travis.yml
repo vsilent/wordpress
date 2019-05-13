@@ -26,3 +26,8 @@ before_script:
 
 script:
   - python tests.py
+
+notifications:
+  slack:
+    rooms:
+	  - optimum-team:GycletOWK4Kt95GktwYwfUMp#build
