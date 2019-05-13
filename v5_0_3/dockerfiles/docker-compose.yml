@@ -17,6 +17,7 @@ services:
 
   wordpress:
     image: trydirect/wordpress:5.0.3
+    build: build/wordpress
     container_name: wordpress
     restart: always
     env_file: .env

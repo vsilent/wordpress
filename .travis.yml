@@ -15,7 +15,7 @@ before_install:
 
 install:
   - cd v5_0_3/dockerfiles
-  - docker-compose pull
+  - docker-compose build
   - docker-compose up -d
   - docker-compose ps
 
