@@ -10,7 +10,12 @@ volumes:
 services:
   wpdb:
     image: mysql:5.7
-    env_file: .env
+    container_name: wpdb
+    environment:
+      MYSQL_ROOT_PASSWORD: wordpress
+      MYSQL_DATABASE: wordpress
+      MYSQL_USER: wordpress
+      MYSQL_PASSWORD: wordpress
     restart: always
     volumes:
          - wp-db:/var/lib/mysql
@@ -20,7 +25,6 @@ services:
     build: build/wordpress
     container_name: wordpress
     restart: always
-    env_file: .env
     links:
       - wpdb:db
     volumes:

@@ -38,6 +38,7 @@ response = requests.get("http://localhost")
 assert response.status_code == 200
 print(response.text)
 
+print(client.containers.list())
 mysql = client.containers.get('wpdb')
 assert mysql.status == 'running'
 mycnf = mysql.exec_run("/usr/sbin/mysqld --verbose  --help")
