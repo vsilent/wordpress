@@ -34,15 +34,17 @@ RUN curl -LO https://github.com/WordPress/WordPress/archive/5.0.3.tar.gz && \
 #	chown -R www-data:www-data /usr/share/nginx/www
 RUN mkdir -p /usr/share/nginx
 RUN ln -s /var/www/html/WordPress-5.0.3 /usr/share/nginx/www
+
+RUN mkdir /run/php
+
+RUN chown -R wordpress. /run/php && \
+    chown -R wordpress. /var/log/supervisor
+
 # Copy wp-config
 COPY config/wp-config.php /usr/share/nginx/www/wp-config.php
 COPY config/supervisord.conf /etc/supervisord.conf
 COPY config/www.conf /etc/php/7.0/fpm/pool.d
-RUN mkdir /run/php
-
-RUN chown -R wordpress. /run/php && \
-    mkdir -p /var/log/php && \
-    chown -R wordpress. /var/log/php*
+COPY config/php-fpm.conf /etc/php/7.0/fpm/php-fpm.conf
 
 CMD ["/usr/bin/supervisord", "--configuration=/etc/supervisord.conf"]
 
